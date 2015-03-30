@@ -21,5 +21,5 @@ imshow(lenaInvDCT, []);
 title('1.1 Reconstructed Image')
 lenaInvDCT = inverseDCT( lenaFwdDCT, blocksize);
 
-saveFigs(fig1, 'Reconstructed File', 'png');    %Save to a png file
+saveFigs(fig1, 'ReconstructedPart1_1', 'png');    %Save to a png file
 
