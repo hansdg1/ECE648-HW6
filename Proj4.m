@@ -9,16 +9,17 @@ fig1 = figure(1);
 lena = double(imread('lena.bmp'));  % Input Image (filesize = 256 x 256)
 blocksize = [8 8];                  % Divide into blocks
 
+% Forward DCT Transform
 subplot(1,2,1);
 imshow(lena, []);
 title('1.1 Original Image')
-lenaDCT = nonoverlappingDCT(lena, blocksize);
+lenaFwdDCT = forwardDCT(lena, blocksize);
 
-
+% Inverse DCT Transform
 subplot(1,2,2);
-imshow(lenaiDCT, []);
+imshow(lenaInvDCT, []);
 title('1.1 Reconstructed Image')
-lena_inv_dct = inverseDCT( lenaDCT, blocksize);
+lenaInvDCT = inverseDCT( lenaFwdDCT, blocksize);
 
 saveFigs(fig1, 'Reconstructed File', 'png');    %Save to a png file
 
