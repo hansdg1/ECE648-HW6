@@ -4,7 +4,7 @@ The purpose of this exercise is to perform block-based compression of images usi
 transforms and zonal sampling.
 # Transform Coding of Images
 ## Forward and Inverse Transform
-1. Read the 8-bit image lena.bmp of size 256x256 and convert it into double type. (*imread*, *double*)
+1. Read the 8-bit image [lena.bmp](lena.bmp) of size 256x256 and convert it into double type. (*imread*, *double*)
 1. Divide the image into nonoverlapping 8x8 blocks and compute DCT of each block. (*blkproc*, *dct2*)
 1. Reconstruct the image by performing the inverse DCT. (*blkproc*, *idct2*)
 1. Display and print the original and reconstructed images side by side. (*subplot*)
