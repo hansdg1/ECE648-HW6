@@ -17,9 +17,8 @@ lenaFwdDCT = forwardDCT(lena, blocksize);
 
 % Inverse DCT Transform
 subplot(1,2,2);
+lenaInvDCT = inverseDCT( lenaFwdDCT, blocksize);
 imshow(lenaInvDCT, []);
 title('1.1 Reconstructed Image')
-lenaInvDCT = inverseDCT( lenaFwdDCT, blocksize);
-
 saveFigs(fig1, 'ReconstructedPart1_1', 'png');    %Save to a png file
 
