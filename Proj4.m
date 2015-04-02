@@ -26,6 +26,11 @@ saveFigs(fig1, 'ReconstructedPart1_1', 'png');    %Save to a png file
 
 %% 1.2 -- DCT & iDCT
 
-zonal_4 = zonalSampling(lena, blocksize, 4);
-zonal_9 = zonalSampling(lena, blocksize, 9);
+zonal_4  = zonalSampling(lena, blocksize, 4);
+zonal_9  = zonalSampling(lena, blocksize, 9);
 zonal_16 = zonalSampling(lena, blocksize, 16);
+
+% mse_zonal_4  = 
+% mse_zonal_9  =
+% mse_zonal_16 =
+
