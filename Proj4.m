@@ -8,7 +8,7 @@
 lena_original = im2double(imread('lena.bmp'));
 [M, N] = size(lena_original);
 % lena_im2double = im2double('lena.bmp');
-% lena_im2double= double(imread('lena.bmp'));  % Input Image (filesize = 256 x 256)
+% lena_im2double= im2double(imread('lena.bmp'));  % Input Image (filesize = 256 x 256)
 blocksize = [8, 8];                  % Divide into blocks
 
 fig1 = figure(1);
@@ -29,6 +29,7 @@ saveFigs(fig1, 'ReconstructedPart1_1', 'png');    %Save to a png file
 %% 1.2 -- DCT & iDCT
 fig2 = figure(2);
 
+% Put Original images in middle
 subplot(3, 3, 2);
 imshow(lena_original, []);
 title('Original Image')
@@ -43,7 +44,8 @@ title('Original Image')
 zonal_4  = zonalSampling(lena_original, blocksize, 4);
 zonal_9  = zonalSampling(lena_original, blocksize, 9);
 zonal_16 = zonalSampling(lena_original, blocksize, 16);
-% 
+
+% Zonal plots on left
 subplot(3, 3, 1);
 imshow(zonal_4.output, []);
 title('4 DCT Coefficients')
@@ -63,3 +65,46 @@ fprintf('MSE for zonal_16: %.2f\n', zonal_16.mse);
 
 saveFigs(fig2, 'ZonalSampling.png', 'png');
 
+%% 1.3 Hadamard
+
+% H = (1/sqrt(8)) * hadamard(blocksize(1));
+% 
+% fun = @(block_struct) hadamard(block_struct.data);
+% lenaH = blockproc(lena_original, blocksize, fun);
+% 
+% 
+
+H = (1/sqrt(8))*hadamard(8);
+
+% 4 Coefficients
+% lenaH = blkproc(lena_original, [8,8], 'P1*x*P2', H, H');
+% fun = @(block_struct) zonal_4.maskcoeff .* block_struct.data;
+% lena4H = blockproc(lenaH, [8 8], fun);
+% lena4H = blkproc(lena4H, [8,8], 'P1*x*P2', H, H');
+figure(3)
+hadamard4 = hadamard_transform(lena_original, blocksize, 4);
+imshow(hadamard4,[]);
+% 
+% subplot(3, 3, 3);
+% imshow(lena4H, []);
+% title('4 Hadamard Coefficients')
+% 
+% % 9 Coefficients
+% lenaH = blkproc(lena_original, [8,8], 'P1*x*P2', H, H');
+% fun = @(block_struct) zonal_9.maskcoeff .* block_struct.data;
+% lena9H = blockproc(lenaH, [8 8], fun);
+% lena9H = blkproc(lena9H, [8,8], 'P1*x*P2', H, H');
+% 
+% subplot(3, 3, 6);
+% imshow(lena9H, []);
+% title('9 Hadamard Coefficients')
+% 
+% % 9 Coefficients
+% lenaH = blkproc(lena_original, [8,8], 'P1*x*P2', H, H');
+% fun = @(block_struct) zonal_16.maskcoeff .* block_struct.data;
+% lena16H = blockproc(lenaH, [8 8], fun);
+% lena16H = blkproc(lena16H, [8,8], 'P1*x*P2', H, H');
+% 
+% subplot(3, 3, 9);
+% imshow(lena16H, []);
+% title('16 Hadamard Coefficients')
