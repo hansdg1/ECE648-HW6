@@ -5,9 +5,10 @@
 
 %% 1.1 -- DCT & iDCT
 
-lena_original = double(imread('lena.bmp'));
+lena_original = im2double(imread('lena.bmp'));
 [M, N] = size(lena_original);
-% lena = double(imread('lena.bmp'));  % Input Image (filesize = 256 x 256)
+% lena_im2double = im2double('lena.bmp');
+% lena_im2double= double(imread('lena.bmp'));  % Input Image (filesize = 256 x 256)
 blocksize = [8, 8];                  % Divide into blocks
 
 fig1 = figure(1);
@@ -23,7 +24,7 @@ lenaInvDCT = inverseDCT( lenaFwdDCT, blocksize);
 imshow(lenaInvDCT, []);
 title('1.1 Reconstructed Image')
 saveFigs(fig1, 'ReconstructedPart1_1', 'png');    %Save to a png file
-
+        
 
 %% 1.2 -- DCT & iDCT
 fig2 = figure(2);
@@ -42,38 +43,19 @@ title('Original Image')
 zonal_4  = zonalSampling(lena_original, blocksize, 4);
 zonal_9  = zonalSampling(lena_original, blocksize, 9);
 zonal_16 = zonalSampling(lena_original, blocksize, 16);
-
+% 
 subplot(3, 3, 1);
-imshow(zonal_4, []);
+imshow(zonal_4.output, []);
 title('4 DCT Coefficients')
 
 subplot(3, 3, 4);
-imshow(zonal_9, []);
+imshow(zonal_9.output, []);
 title('9 DCT Coefficients')
 
 subplot(3, 3, 7);
-imshow(zonal_16, []);
+imshow(zonal_16.output, []);
 title('16 DCT Coefficients')
 
-% Calculating MSE
-% mse_zonal_0  = mean(mean((lena_original - lenaInvDCT ).^2, 2),1)/(256*256);
-% mse_zonal_4  = mean(mean((lena_original - zonal_4    ).^2, 2),1)/(256*256);
-% mse_zonal_9  = mean(mean((lena_original - zonal_9    ).^2, 2),1)/(256*256);
-% mse_zonal_16 = mean(mean((lena_original - zonal_16   ).^2, 2),1)/(256*256);
-% 
-% mse_zonal_4_err = lena_original - zonal_4;
-% mse_zonal_4_mse = (sum(sum(mse_zonal_4_err .* mse_zonal_4_err)))/(M * N);
 
-xmse_zonal_00_func = meanSquaredError(lena_original,lenaInvDCT);
-xmse_zonal_04_func = meanSquaredError(lena_original,zonal_4);
-xmse_zonal_09_func = meanSquaredError(lena_original,zonal_9);
-xmse_zonal_16_func = meanSquaredError(lena_original,zonal_16);
-
-saveFigs(fig2, 'ZonalSampling', 'png');
-% http://stackoverflow.com/questions/3692335/how-to-find-the-mean-square-error-in-matlab#answer-3692509
-% MSE = reshape(mean(mean((double(M1) - double(M2)).^2,2),1),[1,3]);
-
-
-% http://www.mathworks.com/matlabcentral/answers/81048-mse-mean-square-error#answer_133017
-% MSE1=mean(mean((im-imf1).^2));
+saveFigs(fig2, 'ZonalSampling.png', 'png');
 
