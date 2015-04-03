@@ -22,6 +22,6 @@ zonalSample_out = blockproc(zonalSample_out, blocksize, fun);
 fun = @(block_struct) idct2(block_struct.data);
 zonalSample_out = blockproc(zonalSample_out, blocksize, fun);
 
-
+% zonalSample_out.mse = 
 end
 
