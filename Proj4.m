@@ -56,6 +56,10 @@ subplot(3, 3, 7);
 imshow(zonal_16.output, []);
 title('16 DCT Coefficients')
 
+% Print MSE for each
+fprintf('MSE for zonal_4: %.2f\n', zonal_4.mse);
+fprintf('MSE for zonal_9: %.2f\n', zonal_9.mse);
+fprintf('MSE for zonal_16: %.2f\n', zonal_16.mse);
 
 saveFigs(fig2, 'ZonalSampling.png', 'png');
 

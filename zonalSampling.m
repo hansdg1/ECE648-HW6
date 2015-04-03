@@ -2,9 +2,11 @@ function zonalSample_out = zonalSampling( input_img, blocksize, numCoeffs )
 %ZONALSAMPLING Returns a struct containing the compressed image, and the
 %MSE between the input and returned image.
 %   Compresses input_img by retaining only numCoeffs DCT coefficients
+%   Calls meanSquaredError to calculated the MSE between input_img and
+%   zonalSample_out.output
 
 % Initialize 8x8 to all 0's
-mask_coeff = zeros(blocksize);      
+mask_coeff = zeros(blocksize);
 
 % Calculate the dimensions of the 1's mask
 coeff = sqrt(numCoeffs);
@@ -24,5 +26,5 @@ zonalSample = blockproc(zonalSample, blocksize, fun);
 
 % Setup output struct and calculate MSE
 zonalSample_out.output = zonalSample;
-zonalSample_out.mse = sum(sum((input_img - zonalSample_out.output).^2 ));
+zonalSample_out.mse = meanSquaredError(input_img, zonalSample_out.output);
 end

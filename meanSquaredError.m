@@ -1,5 +1,7 @@
-% Based on code from https://github.com/newmanne/ece521/blob/2563ca16003136863eb15b1882c17bffc58dd374/Inference1/meanSquaredError.m
-function [ meanSquaredError ] = meanSquaredError(YPrediction, YMeasured)
-%     meanSquaredError = sum((YPrediction - YMeasured).^2) ./ length(YPrediction);
-meanSquaredError = mean(mean((YPrediction - YMeasured).^2));
+function meanSquaredError = meanSquaredError(Original, Calculated)
+% MEANSQUAREDERROR Returns the Mean Squared Error (MSE) between Original
+% and Calculated
+
+meanSquaredError = sum(sum((Original - Calculated).^2 ));
+
 end
