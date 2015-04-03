@@ -1,4 +1,4 @@
-function zonalSample_out = zonalSampling( input_img, blocksize, numCoeffs )
+function [zonalSample_out] = zonalSampling( input_img, blocksize, numCoeffs )
 %ZONALSAMPLING Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -13,9 +13,11 @@ mask_coeff(1:coeff, 1:coeff) = 1;
 % Perform DCT
 fun = @(block_struct) dct2(block_struct.data);
 zonalSample_out = blockproc(input_img, blocksize, fun);
+
 % Apply the mask
 fun = @(block_struct) mask_coeff .* block_struct.data;
 zonalSample_out = blockproc(zonalSample_out, blocksize, fun);
+
 % Inverse DCT
 fun = @(block_struct) idct2(block_struct.data);
 zonalSample_out = blockproc(zonalSample_out, blocksize, fun);

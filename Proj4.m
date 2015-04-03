@@ -5,9 +5,10 @@
 
 %% 1.1 -- DCT & iDCT
 
-lena_original = im2double(imread('lena.bmp'));
+lena_original = double(imread('lena.bmp'));
+[M, N] = size(lena_original);
 % lena = double(imread('lena.bmp'));  % Input Image (filesize = 256 x 256)
-blocksize = [8 8];                  % Divide into blocks
+blocksize = [8, 8];                  % Divide into blocks
 
 fig1 = figure(1);
 % Forward DCT Transform
@@ -55,11 +56,18 @@ imshow(zonal_16, []);
 title('16 DCT Coefficients')
 
 % Calculating MSE
-mse_zonal_0  = mean(mean((lena_original - lenaInvDCT ).^2, 2),1)/(256*256);
-mse_zonal_4  = mean(mean((lena_original - zonal_4    ).^2, 2),1)/(256*256);
-mse_zonal_9  = mean(mean((lena_original - zonal_9    ).^2, 2),1)/(256*256);
-mse_zonal_16 = mean(mean((lena_original - zonal_16   ).^2, 2),1)/(256*256);
+% mse_zonal_0  = mean(mean((lena_original - lenaInvDCT ).^2, 2),1)/(256*256);
+% mse_zonal_4  = mean(mean((lena_original - zonal_4    ).^2, 2),1)/(256*256);
+% mse_zonal_9  = mean(mean((lena_original - zonal_9    ).^2, 2),1)/(256*256);
+% mse_zonal_16 = mean(mean((lena_original - zonal_16   ).^2, 2),1)/(256*256);
+% 
+% mse_zonal_4_err = lena_original - zonal_4;
+% mse_zonal_4_mse = (sum(sum(mse_zonal_4_err .* mse_zonal_4_err)))/(M * N);
 
+xmse_zonal_00_func = meanSquaredError(lena_original,lenaInvDCT);
+xmse_zonal_04_func = meanSquaredError(lena_original,zonal_4);
+xmse_zonal_09_func = meanSquaredError(lena_original,zonal_9);
+xmse_zonal_16_func = meanSquaredError(lena_original,zonal_16);
 
 saveFigs(fig2, 'ZonalSampling', 'png');
 % http://stackoverflow.com/questions/3692335/how-to-find-the-mean-square-error-in-matlab#answer-3692509
